@@ -1,0 +1,28 @@
+-first lets get familiar with media queries
+
+-development should begin slowly. I want to first focus on just getting the basic html/css structure out, and building
+the queries so that it looks good on mobile. leave out the asthetic details
+
+-note that everything should be scalable, so %'s are prefered to actual pixel units
+
+-flex layout can be used to keep the grid of buttons orderly (grid layout may be prefered then)
+
+Code Design:
+-use boolean to see if this is the first button/card being hit
+-i still prefer to use onclick to get the events (pavol prefers to manually add in the event listener with addEventLister, which 
+might better)
+-have a 2D grid object, where we hold all button objects (it will be booleans)
+-same object can also have value for the number (so its a struct)
+-clicking empty square revels all adjacent empty squares (seems best to be recursive). use loop iteration to see whats adjacent 
+(-1, 0, -1)
+
+
+
+To Research:
+-can a button know if its been a long press? cause essentially all the cards are buttons
+-how will buttons in 2D grid object know their neighbours. how do it fast? 
+-how to recognize a long tap
+
+Notes:
+-landscape: max width of 800px
+-portrait: full width, whatever height
