@@ -1,6 +1,7 @@
 body {
     height: 100vh;
     width: 100vw;
+    background-color: blanchedalmond;
 }
 
 h1 {
@@ -23,9 +24,27 @@ h1 {
     height: 500px;
     max-width: 800px;
     top: 50vh;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    border-color: black;
+    border-width: 3px;
+    border-style: solid;
 }
 
+.btn {
+    color: black;
+    background-color: blanchedalmond;
+}
+
+
 /* Media Queries */
+
+@media (min-width: 736px) {
+    .btn:hover {
+        background-color: yellow;
+    }
+}
 
 @media (orientation: landscape) and (max-width: 736px)  { 
     #grid {

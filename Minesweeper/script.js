@@ -1,39 +1,66 @@
-// size of board
-const SIZE = 3;
+/*
+ * Interesting point, dont use innerHTML that much, cause it can override eventListeners
+  * insertAdjacentHTML is safer (but dont use this for pure text)
+ */
 
-// button array and struct
+"use strict";
+
+window.addEventListener('load', main);
+
+// size of board
+let ROWS = 8;
+let COLS = 10;
+
+// time the longpress
+let pressTimer;
+
+// button array, where each element holds struct
 let buttonArray = []
-for (let i = 0; i < SIZE; i++) {
-    for (let j = 0; j < SIZE; j++) {
+
+function createButtonArray() {
+    for (let i = 0; i < ROWS; i++) {
         buttonArray[i] = [];
-        buttonArray[i][j] = {
-            isMine: false,
-            neighbouringMines: 0
+        for (let j = 0; j < COLS; j++) {
+            buttonArray[i][j] = {
+                isMine: false,
+                neighbouringMines: 0,
+                buttonObject: null,
+                row: i,
+                col: j
+            }
         }
     }
 }
 
-window.addEventListener('load', main);
-
 function main() {
-    console.table(buttonArray);
+    createButtonArray();
     let grid = document.getElementById("grid");
     createButtons(grid);
 }
 
 function createButtons(grid) {
-    for (let i = 0; i < SIZE; i++) {
-        for (let j = 0; j < SIZE; j++) {
-            let btn = document.createElement("button", 'class="btn btn-secondary"');
-            btn.className = "btn btn-secondary";
-            btn.innerHTML = "Btn";
-            btn.addEventListener("click", () => console.log("Working"));
+    for (let i = 0; i < ROWS; i++) {
+        for (let j = 0; j < COLS; j++) {
+            const btn = document.createElement("button");
+            btn.className = "btn btn-primary";
+            btn.type = "button";
+            btn.insertAdjacentHTML("beforeend", "Btn");
             grid.appendChild(btn);
+            buttonArray[i][j].buttonObject = btn;
+            btn.addEventListener("mousedown", () => btnPress(buttonArray[i][j]));
+            btn.addEventListener("mouseup", () => btnDepress());
         }
-        grid.innerHTML += "<br>";
     }
 }
 
-function callback() {
-    alert("Callback working");
+function btnPress(button){
+    button.buttonObject.style.background = "yellow";    
+    pressTimer = setTimeout(() => {
+        button.buttonObject.style.background = "red";
+        button.buttonObject.innerHTML = "";
+    }, 1000);
+}
+
+function btnDepress() {
+    clearTimeout(pressTimer);
 }
